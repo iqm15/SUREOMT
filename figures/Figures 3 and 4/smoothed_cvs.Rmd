@@ -1,0 +1,204 @@
+---
+title: "Smoothed_cvs"
+output: html_document
+---
+```{r}
+library(OnlineSuperUnif)
+library(ggplot2)
+library(ggpubr)
+```
+
+```{r}
+llog <- function(x) { 
+  -log(-log(x))
+}
+```
+
+```{r}
+# parameters
+alpha = 0.2
+w0 = 0.1
+m = 300 # nb of tests
+N = 25 # nb of individuals 
+p3 = 0.3 # signal strength
+non_nulls_proportion = 0.3
+cluster_option = "no_cluster_shuffle"
+q_1 = 1.6
+gamma <- gamma_sequence("q-serie", m, q_1)
+kernel_bandwidth = 10
+gamma_prime <- gamma_sequence("rectangular", m, kernel_bandwidth)
+```
+
+```{r}
+# simulate data and get p-values 
+data <- data_simulation(N, m, non_nulls_proportion, p3, cluster_option, seed = 23)
+test <- pvalues_simulation(data$data)
+raw_pvalues <- test$raw
+CDF <- test$support
+```
+
+################################################################################################################
+# FWER 
+```{r}
+# cvs for rho greedy rho OB
+cv_grhoob <- rho_OB(alpha, raw_pvalues, CDF, gamma)
+
+# cvs for rho OB (smoothed out the greedy procedure) 
+cv_rhoob <- rho_OB(alpha, raw_pvalues, CDF, gamma, gamma_prime)
+
+# cvs for OB 
+cv_ob <- OB(alpha, raw_pvalues, gamma)
+```
+
+```{r}
+data <- data.frame(seq(1, m), llog(cv_grhoob$cv), llog(cv_rhoob$cv), llog(cv_ob$cv), llog(raw_pvalues))
+names(data)[1] = "index"
+names(data)[2] = "grhoob_cv"
+names(data)[3] = "rhoob_cv"
+names(data)[4] = "ob_cv"
+names(data)[5] = "pvalues"
+```
+
+```{r}
+data_rug_1 <- data.frame(seq(1,m)[data$pvalues < data$rhoob_cv])
+names(data_rug_1)[1] <- "rhoobdisco"
+
+data_rug_2 <- data.frame(seq(1,m)[data$pvalues < data$grhoob_cv])
+names(data_rug_2)[1] <- "grhoobdisco"
+
+data_rug_3 <- data.frame(seq(1,m)[data$pvalues < data$ob_cv])
+names(data_rug_3)[1] <- "obdisco"
+```
+
+```{r}
+plot_smoothedcvs_fwer_loglog <- ggplot(data) +
+                    geom_point(aes_string("index", "pvalues"), size = 2, color = "black", alpha = 0.3) +
+                    geom_line(aes_string("index", "ob_cv"), lwd = 1, color = "darksalmon") +
+                    geom_line(aes_string("index", "grhoob_cv"), lwd = 1, color = "cornflowerblue") + 
+                    geom_line(aes_string("index", "rhoob_cv"), lwd = 1, color = "darkolivegreen") +
+                    geom_rug(data = data_rug_1, mapping = aes(x = rhoobdisco), color = "darkolivegreen", size = 1.2) +
+                    geom_rug(data = data_rug_3, mapping = aes(x = obdisco), color = "darksalmon") +
+                    geom_rug(data = data_rug_2, mapping = aes(x = grhoobdisco), color = "cornflowerblue", outside = TRUE, size = 1.2) +
+                    
+                    
+                    coord_cartesian(clip = "off") +
+                    labs(x = "t", y = "p-values / critical values") +
+                    ylim(c(min(llog(cv_ob$cv)), 0)) +
+                    theme(axis.text = element_text(size = 12))
+            
+
+plot_smoothedcvs_fwer_loglog
+```
+
+```{r}
+ggsave("smoothed_cvs_fwer.png", plot = plot_smoothedcvs_fwer_loglog, width = 16, height = 10, units = "cm")
+```
+
+#######################################################################################################################
+# mFDR
+```{r}
+# cvs for rho greedy rho LORD
+cv_grholord <- rho_LORD(alpha, w0, raw_pvalues, CDF, gamma)
+
+# cvs for rho LORD (smoothed out the greedy procedure) 
+cv_rholord <- rho_LORD(alpha, w0, raw_pvalues, CDF, gamma, gamma_prime)
+
+# cvs for LORD
+cv_lord <- lord_OnlineSuperUnif(alpha, w0, raw_pvalues, gamma)
+```
+
+```{r}
+data <- data.frame(seq(1, m), llog(cv_grholord$cv), llog(cv_rholord$cv), llog(cv_lord$cv), llog(raw_pvalues))
+names(data)[1] = "index"
+names(data)[2] = "grholord_cv"
+names(data)[3] = "rholord_cv"
+names(data)[4] = "lord_cv"
+names(data)[5] = "pvalues"
+```
+
+```{r}
+data_rug_1 <- data.frame(seq(1,m)[data$pvalues < data$rholord_cv])
+names(data_rug_1)[1] <- "rholorddisco"
+
+data_rug_2 <- data.frame(seq(1,m)[data$pvalues < data$grholord_cv])
+names(data_rug_2)[1] <- "grholorddisco"
+
+data_rug_3 <- data.frame(seq(1,m)[data$pvalues < data$lord_cv])
+names(data_rug_3)[1] <- "lorddisco"
+```
+
+```{r}
+plot_smoothedcvs_mfdr_loglog <- ggplot(data) + 
+                    geom_point(aes_string("index", "pvalues"), size = 2, color = "black", alpha = 0.3) +
+                    geom_line(aes_string("index", "lord_cv"), lwd = 1, color = "darksalmon") +
+                    geom_line(aes_string("index", "grholord_cv"), lwd = 1,  color = "cornflowerblue") + 
+                    geom_line(aes_string("index", "rholord_cv"), lwd = 1, color = "darkolivegreen") +
+                    geom_rug(data = data_rug_1, mapping = aes(x = rholorddisco), color = "darkolivegreen", size = 0.9) +
+                    geom_rug(data = data_rug_3, mapping = aes(x = lorddisco), color = "darksalmon") +
+                    geom_rug(data = data_rug_2, mapping = aes(x = grholorddisco), color = "cornflowerblue", outside = TRUE, size = 0.9) +
+                    
+                    
+                    coord_cartesian(clip = "off") +
+                    labs(x = "t", y = "p-values / critical values") +
+                    ylim(c(min(llog(cv_lord$cv)), 0)) +
+                    theme(axis.text = element_text(size = 12))
+            
+
+plot_smoothedcvs_mfdr_loglog
+```
+
+```{r}
+ggsave("smoothed_cvs_mfdr.png", plot = plot_smoothedcvs_mfdr_loglog, width = 16, height = 10, units = "cm")
+```
+
+################################################################################################################
+# Comparing the different gamma prime sequences for mFDR procedures (Figure not present in the paper)
+
+```{r}
+gamma_prime_jm <- gamma_sequence("JM", m, NULL)
+gamma_prime_q <- gamma_sequence("q-serie", m, 1.6)
+gamma_prime_logq <- gamma_sequence("log-q-serie", m, 2)
+```
+
+```{r}
+# cvs for rho LORD with JM as SURE spending sequence 
+cv_rholord_jm <- rho_LORD(alpha, w0, raw_pvalues, CDF, gamma, gamma_prime_jm)
+
+# cvs for rho LORD with q-serie as SURE spending sequence 
+cv_rholord_q <- rho_LORD(alpha, w0, raw_pvalues, CDF, gamma, gamma_prime_q)
+
+# cvs for rho LORD with log-q serie as SURE spending sequence 
+cv_rholord_logq <- rho_LORD(alpha, w0, raw_pvalues, CDF, gamma, gamma_prime_logq)
+```
+
+```{r}
+data_2 <- data.frame(seq(1, m), llog(cv_rholord$cv), llog(cv_rholord_jm$cv), llog(cv_rholord_q$cv), llog(cv_rholord_logq$cv), llog(raw_pvalues))
+names(data_2)[1] = "index"
+names(data_2)[2] = "rholord_cv"
+names(data_2)[3] = "rholord_jm_cv"
+names(data_2)[4] = "rholord_q_cv"
+names(data_2)[5] = "rholord_logq_cv"
+names(data_2)[6] = "pvalues"
+```
+
+```{r}
+plot_smoothedcvs_mfdr_loglog_2 <- ggplot(data_2) + 
+                    geom_point(aes_string("index", "pvalues"), size = 2, color = "black", alpha = 0.3) +
+                    geom_line(aes_string("index", "rholord_cv"), lwd = 1, color = "darkolivegreen") +
+                    geom_line(aes_string("index", "rholord_jm_cv"), lwd = 1, color = "pink") +
+                    geom_line(aes_string("index", "rholord_q_cv"), lwd = 1, color = "red") +
+                    geom_line(aes_string("index", "rholord_logq_cv"), lwd = 1, color = "yellow") +
+                    
+                    coord_cartesian(clip = "off") +
+                    labs(x = "t", y = "p-values / critical values") +
+                    # ylim(c(min(llog(cv_lord$cv)), 0)) +
+                    theme(axis.text = element_text(size = 12))
+            
+
+plot_smoothedcvs_mfdr_loglog_2
+```
+
+```{r}
+ggsave("smoothed_cvs_mfdr_diff_gamma_prime.png", plot = plot_smoothedcvs_mfdr_loglog_2, width = 16, height = 10, units = "cm")
+```
+

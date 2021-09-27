@@ -1,0 +1,20 @@
+{
+    "nb_run": 10,
+    "non_nulls_proportion": 0.5,
+    "alpha": 0.2,
+    "w0": 0.1,
+    "N": 25,
+    "gamma_type": "q-serie",
+    "q_1": 1.6,
+    "gamma_prime_type":"rectangular",
+    "q_2": 10,
+    "m": 2,
+    "p3": {
+      "begin" : 0.1,
+      "end" : 1,
+      "by" : 0.1
+    },
+    "lambda": 0.5,
+    "cluster_option": "end",
+    "param_interest": "signal_strength_p3"
+}

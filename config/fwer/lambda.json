@@ -1,0 +1,19 @@
+{
+  "nb_run": 10,
+  "non_nulls_proportion": 0.3,
+  "alpha": 0.2,
+  "N": 25,
+  "gamma_type": "q-serie",
+  "q_1": 1.6,
+  "gamma_prime_type": "rectangular",
+  "q_2": 100,
+  "m": 500,
+  "p3": 0.4,
+  "lambda": {
+    "begin": 0.1,
+    "end" : 0.9,
+    "by" : 0.1
+  },
+  "cluster_option": "no_cluster_shuffle",
+  "param_interest": "lambda"
+}
