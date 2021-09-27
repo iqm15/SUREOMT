@@ -10,14 +10,15 @@ in OnlineSuperUnif/ folder. You must install the package to reproduce the experi
 # install.packages("devtools") # If devtools not installed
 devtools::install("OnlineSuperUnif")
 ```
-The main/ folder contains the scripts for the experiments (either on simulated data or on real data).
+The main/ folder contains the scripts for the experiments,
+either on simulated data or on real data (see the README in it).
 Parameters of the experiments are set using .json files contained in the config/ folder. 
 The current parameters are the one used for the figures provided in the paper.
-Running the experiments in the main/ folder will provide Figures .... in the figures/ folder and the associated data in the data/ folder.
+Running the experiments in the main/ folder will provide Figures 6, to 13, 16 to 17 in the figures/ folder and the associated data in the data/ folder.
 To launch the experiments type in a terminal
 ``` 
 bash launch_fwerxp.sh
 bash launch_mfdrxp.sh
 ```
-Finally in the figures/ folder and the corresponding folder in it, we provide Rmds to reproduce Figures ... 
+Finally in the figures/ folder and the corresponding folder in it, we provide Rmds to reproduce Figures 1, 2, 3, 4, 14, and 15. 
 
