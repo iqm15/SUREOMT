@@ -90,7 +90,10 @@ gamma_sequence <- function(type, nb_pvalues, q) {
 
   else {
     if (q - round(q) != 0) {
-      stop("you should provide a round number for the bandwidth, q, when wantingto use a rectangular kernel")
+      stop("You should provide a round number for the bandwidth, q, when wanting to use a rectangular kernel.")
+    }
+    if (nb_pvalues - q < 0) {
+      stop("The kernel bandwidth cannot be larger than the number of hypothesis to test.")
     }
     gamma <- c(rep(1 / q, q), rep(0, nb_pvalues - q))
   }

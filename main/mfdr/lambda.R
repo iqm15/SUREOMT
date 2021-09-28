@@ -73,7 +73,7 @@ write.csv(df_mfdr, file_name_data_mfdr, row.names = FALSE)
 # ---------------------- make plot and save it -----------------------------------
 # filter to plot only the adaptive procedures 
 df_power <- df_power %>% filter(procedure == "ALORD" | procedure == "SAFFRON" | procedure == "rhoALORD")
-df_fwer <- df_fwer %>% filter(procedure == "ALORD" | procedure == "SAFFRON" | procedure == "rhoALORD")
+df_mfdr <- df_mfdr %>% filter(procedure == "ALORD" | procedure == "SAFFRON" | procedure == "rhoALORD")
 
 # Power plot 
 plot_pow <- ggplot(df_power, 
@@ -102,8 +102,7 @@ plot_mfdr <- ggplot(df_mfdr,
   scale_color_brewer(palette = "Paired") +
   geom_line(size = 1) +
   geom_point(size = 4) +
-  geom_hline(yintercept = 0.2, linetype = "dashed", color = "red", size = 0.5) +
-  ylim(0, 0.2) +
+  geom_hline(yintercept = param.list$alpha, linetype = "dashed", color = "red", size = 0.5) +
   scale_shape_manual(values = seq(0,15)) +
   labs (x = TeX("$\\lambda$"), y = "mFDR") +
   theme(text = element_text(size = 17))

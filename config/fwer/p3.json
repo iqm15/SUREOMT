@@ -7,7 +7,7 @@
     "q_1": 1.6,
     "gamma_prime_type":"rectangular",
     "q_2": 100,
-    "m": 2,
+    "m": 500,
     "p3": {
       "begin": 0.1,
       "end": 1,

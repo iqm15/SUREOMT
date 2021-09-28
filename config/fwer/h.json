@@ -9,7 +9,7 @@
     "N": 25,
     "gamma_type": "q-serie",
     "q_1": 1.6,
-    "kernel_bandwidth": [1, 30, 50, 70, 90, 100],
+    "kernel_bandwidth": [10, 30, 50, 70, 90, 100],
     "m": 500,
     "p3": 0.4,
     "lambda": 0.5,

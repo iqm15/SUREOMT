@@ -98,8 +98,7 @@ plot_mfdr <- ggplot(df_mfdr,
   scale_color_brewer(palette = "Paired") +
   geom_line(size = 1) +
   geom_point(size = 4) +
-  geom_hline(yintercept = 0.2, linetype = "dashed", color = "red", size = 0.5) +
-  ylim(0, 0.2) +
+  geom_hline(yintercept = param.list$alpha, linetype = "dashed", color = "red", size = 0.5) +
   scale_shape_manual(values = seq(0,15)) +
   labs (x = TeX("$p_3$"), y = "mFDR") +
   theme(text = element_text(size = 17))
