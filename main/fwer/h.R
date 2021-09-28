@@ -1,4 +1,3 @@
-setwd("/users/home/meah/phd_projects/SURE_OMT")
 library(OnlineSuperUnif)
 library(lubridate)
 library(svMisc)
@@ -9,7 +8,7 @@ library(tidyverse)
 library(latex2exp)
 
 # ------------------ load parameters from json file -------------------------------------
-param.list <- fromJSON(file = "config/fwer/h.json")  
+param.list <- fromJSON(file = "../../config/fwer/h.json")  
 # ---------------------------------------------------------------------------------------
 
 # nb of procedure to compare
@@ -78,8 +77,8 @@ for (i in 1:length(kernel_bandwidths)) {
   names(df_fwer)[i + 2] = gsub(" ", "_", paste("fwer_bandwidth", kernel_bandwidths[i]))
 }
 
-file_name_data_power = gsub(" " , "", paste("data/fwer/h/", gsub(" ", "_", paste("data_power_fwer_bandwidth_vs_", param.list$param_interest, "study", now(), sep="_")), ".csv"))
-file_name_data_fwer = gsub(" " , "", paste("data/fwer/h/", gsub(" ", "_", paste("data_fwer_bandwidth_vs_", param.list$param_interest, "study", now(), sep="_")), ".csv"))
+file_name_data_power = gsub(" " , "", paste( "../../data/fwer/h/", gsub(" ", "_", paste("data_power_fwer_bandwidth_vs_", param.list$param_interest, "study", now(), sep="_")), ".csv"))
+file_name_data_fwer = gsub(" " , "", paste("../../data/fwer/h/", gsub(" ", "_", paste("data_fwer_bandwidth_vs_", param.list$param_interest, "study", now(), sep="_")), ".csv"))
 write.csv(df_power, file_name_data_power, row.names = FALSE)
 write.csv(df_fwer, file_name_data_fwer, row.names = FALSE)
 
@@ -110,6 +109,6 @@ plot_pow <- ggplot(df_power, aes_string(x = param.list$param_interest,
   labs (x = TeX("$\\pi_A$") , y = "Power") +
   theme(text = element_text(size = 17))
 
-saving_loc = "figures/simulation/fwer/"
+saving_loc = "../../figures/simulation/fwer/"
 plot_name = gsub(" ", "", paste(saving_loc, param.list$param_interest, ".png"))
 ggsave(plot_name, plot = plot_pow)

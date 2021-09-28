@@ -1,4 +1,3 @@
-setwd("/users/home/meah/phd_projects/SURE_OMT")
 library(OnlineSuperUnif)
 library(lubridate)
 library(svMisc)
@@ -9,7 +8,7 @@ library(tidyverse)
 library(latex2exp)
 
 # ------------------ load parameters from yaml file -----------------------------
-param.list <- fromJSON(file = "config/mfdr/signal_position.json")  
+param.list <- fromJSON(file = "../../config/mfdr/signal_position.json")  
 # -------------------------------------------------------------------------------
 # number of procedures to compare
 nb_proc = 6
@@ -64,8 +63,8 @@ names(df_power)[3] = "mean"
 names(df_power)[4] = "sd"
 names(df_mfdr)[3] = "mfdr"
 
-file_name_data_power = gsub(" " , "", paste("data/mfdr/signalpos/", gsub(" ", "_", paste("data_power", param.list$param_interest, "study", now(), sep="_")), ".csv"))
-file_name_data_mfdr = gsub(" " , "", paste("data/mfdr/signalpos/", gsub(" ", "_", paste("data_mfdr", param.list$param_interest, "study", now(), sep="_")), ".csv"))
+file_name_data_power = gsub(" " , "", paste("../../data/mfdr/signalpos/", gsub(" ", "_", paste("data_power", param.list$param_interest, "study", now(), sep="_")), ".csv"))
+file_name_data_mfdr = gsub(" " , "", paste("../../data/mfdr/signalpos/", gsub(" ", "_", paste("data_mfdr", param.list$param_interest, "study", now(), sep="_")), ".csv"))
 write.csv(df_power, file_name_data_power, row.names = FALSE)
 write.csv(df_mfdr, file_name_data_mfdr, row.names = FALSE)
 
@@ -126,6 +125,6 @@ plot_mfdr <- ggplot(df_mfdr,
 
 # arrange both plots in one figure and save it 
 figure <- ggarrange(plot_pow, plot_mfdr, ncol = 2, nrow = 1, common.legend = TRUE)
-saving_loc = "figures/simulation/mfdr/"
+saving_loc = "../../figures/simulation/mfdr/"
 plot_name = gsub(" ", "", paste(saving_loc, param.list$param_interest, ".png"))
 ggsave(plot_name, plot = figure)

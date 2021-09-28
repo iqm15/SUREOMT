@@ -1,4 +1,3 @@
-setwd("/users/home/meah/phd_projects/SURE_OMT")
 library(OnlineSuperUnif)
 library(lubridate)
 library(svMisc)
@@ -9,25 +8,25 @@ library(tidyverse)
 library(latex2exp)
 
 # ------------------ load parameters from yaml file -----------------------------
-param.list <- fromJSON(file = "config/mfdr/N.json") ##
+param.list <- fromJSON(file = "../../config/mfdr/N.json")  
 # -------------------------------------------------------------------------------
 # number of procedures to compare
 nb_proc = 6
 
 # parameter of interest
-N <- seq(param.list$N$begin, param.list$N$end, by = param.list$N$by) ##
+N <- seq(param.list$N$begin, param.list$N$end, by = param.list$N$by)  
 
 # to collect data to plot the power
-means <- matrix(data = NA, nrow = nb_proc, ncol = length(N), byrow = FALSE) ##
-sds <- matrix(data = NA, nrow = nb_proc, ncol = length(N), byrow = FALSE) ##
+means <- matrix(data = NA, nrow = nb_proc, ncol = length(N), byrow = FALSE)  
+sds <- matrix(data = NA, nrow = nb_proc, ncol = length(N), byrow = FALSE)  
 
 # to collect data to plot the mfdr
-data_mfdr <- matrix(data = NA, nrow = nb_proc, ncol = length(N), byrow = FALSE) ##
+data_mfdr <- matrix(data = NA, nrow = nb_proc, ncol = length(N), byrow = FALSE)  
 
-for (i in 1:length(N)) {   ##
+for (i in 1:length(N)) {    
   data <- compare_mfdr_proc(param.list$alpha, param.list$w0,
                             param.list$nb_run,
-                            N[i], param.list$m,  ##
+                            N[i], param.list$m,   
                             param.list$non_nulls_prop, param.list$p3,
                             param.list$cluster_option, param.list$lambda,
                             param.list$gamma_type, param.list$q_1,
@@ -50,8 +49,8 @@ data_mfdr = as.vector(data_mfdr)
 # -------------------- create data frame and save it ----------------------------
 
 procedure = rep(c("ADDIS", "ALORD", "LORD", "rhoALORD", "rhoLORD", "SAFFRON"), # alphabetical order 
-                length.out = nb_proc * length(N)) ##
-param_interest.list = rep(N, each = nb_proc) ##
+                length.out = nb_proc * length(N))  
+param_interest.list = rep(N, each = nb_proc)  
 
 df_power <- data.frame(cbind(param_interest.list, procedure, means, sds))
 df_mfdr <- data.frame(cbind(param_interest.list, procedure, data_mfdr))
@@ -63,8 +62,8 @@ names(df_power)[3] = "mean"
 names(df_power)[4] = "sd"
 names(df_mfdr)[3] = "mfdr"
 
-file_name_data_power = gsub(" " , "", paste("data/mfdr/N/", gsub(" ", "_", paste("data_power", param.list$param_interest, "study", now(), sep="_")), ".csv"))
-file_name_data_mfdr = gsub(" " , "", paste("data/mfdr/N/", gsub(" ", "_", paste("data_mfdr", param.list$param_interest, "study", now(), sep="_")), ".csv"))
+file_name_data_power = gsub(" " , "", paste("../../data/mfdr/N/", gsub(" ", "_", paste("data_power", param.list$param_interest, "study", now(), sep="_")), ".csv"))
+file_name_data_mfdr = gsub(" " , "", paste("../../data/mfdr/N/", gsub(" ", "_", paste("data_mfdr", param.list$param_interest, "study", now(), sep="_")), ".csv"))
 write.csv(df_power, file_name_data_power, row.names = FALSE)
 write.csv(df_mfdr, file_name_data_mfdr, row.names = FALSE)
 
@@ -79,7 +78,7 @@ plot_pow <- ggplot(df_power,
                               shape = "procedure") 
 ) +
   scale_color_brewer(palette = "Paired") +
-  scale_x_continuous(breaks = seq(25, 150, 25)) + 
+  scale_x_discrete(breaks = seq(25, 150, 25)) + 
   geom_line(size = 1) +
   geom_point(size = 4) +
   scale_shape_manual(values = seq(0, 15)) + 
@@ -95,7 +94,7 @@ plot_mfdr <- ggplot(df_mfdr,
                                linetype = "procedure", 
                                shape = "procedure")) +
   scale_color_brewer(palette = "Paired") +
-  scale_x_continuous(breaks = seq(25, 150, 25)) + 
+  scale_x_discrete(breaks = seq(25, 150, 25)) + 
   geom_line(size = 1) +
   geom_point(size = 4) +
   geom_hline(yintercept = param.list$alpha, linetype = "dashed", color = "red", size = 0.5) +
@@ -105,6 +104,6 @@ plot_mfdr <- ggplot(df_mfdr,
 
 # arrange both plots in one figure and save it 
 figure <- ggarrange(plot_pow, plot_mfdr, ncol = 2, nrow = 1, common.legend = TRUE)
-saving_loc = "figures/simulation/mfdr/"
+saving_loc = "../../figures/simulation/mfdr/"
 plot_name = gsub(" ", "", paste(saving_loc, param.list$param_interest, ".png"))
 ggsave(plot_name, plot = figure)

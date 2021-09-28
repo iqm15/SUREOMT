@@ -1,4 +1,3 @@
-setwd("/users/home/meah/phd_projects/SURE_OMT")
 library(OnlineSuperUnif)
 library(lubridate)
 library(svMisc)
@@ -9,7 +8,7 @@ library(tidyverse)
 library(latex2exp)
 
 # ------------------ load parameters from yaml file -----------------------------
-param.list <- fromJSON(file = "config/mfdr/h.json")  
+param.list <- fromJSON(file = "../../config/mfdr/h.json")  
 # -------------------------------------------------------------------------------
 
 # nb of procedure to comapare
@@ -79,8 +78,8 @@ for (i in 1:length(kernel_bandwidths)) {
   names(df_mfdr)[i + 2] = gsub(" ", "_", paste("mfdr_bandwidth", kernel_bandwidths[i]))
 }
 
-file_name_data_power = gsub(" " , "", paste("data/mfdr/h/", gsub(" ", "_", paste("data_power_bandwidth_vs_", param.list$param_interest, "study", now(), sep="_")), ".csv"))
-file_name_data_mfdr = gsub(" " , "", paste("data/mfdr/h/", gsub(" ", "_", paste("data_mfdr_bandwidth_vs_", param.list$param_interest, "study", now(), sep="_")), ".csv"))
+file_name_data_power = gsub(" " , "", paste("../../data/mfdr/h/", gsub(" ", "_", paste("data_power_bandwidth_vs_", param.list$param_interest, "study", now(), sep="_")), ".csv"))
+file_name_data_mfdr = gsub(" " , "", paste("../../data/mfdr/h/", gsub(" ", "_", paste("data_mfdr_bandwidth_vs_", param.list$param_interest, "study", now(), sep="_")), ".csv"))
 write.csv(df_power, file_name_data_power, row.names = FALSE)
 write.csv(df_mfdr, file_name_data_mfdr, row.names = FALSE)
 
@@ -108,6 +107,6 @@ plot_pow <- ggplot(df_power, aes_string(x = param.list$param_interest group = "p
   labs (x = TeX("$\\pi_A$") , y = "Power") +
   theme(text = element_text(size = 17))
 
-saving_loc = "figures/simulation/mfdr/"
+saving_loc = "../../figures/simulation/mfdr/"
 plot_name = gsub(" ", "", paste(saving_loc, param.list$param_interest, "kernel_bandwidth", ".png"))
 ggsave(plot_name, plot = plot_pow)

@@ -1,4 +1,3 @@
-setwd("/users/home/meah/phd_projects/SURE_OMT")
 library(dplyr)
 library(OnlineSuperUnif)
 library(onlineFDR)
@@ -17,7 +16,7 @@ library(latex2exp)
 # write.csv(df, "my_impcdata.csv", row.names = TRUE)
 
 # ------------------ load parameters from json file ------------------------------------------------------
-param.list <- fromJSON(file = "config/fwer/impc_fwer_appli.json") 
+param.list <- fromJSON(file = "../../config/fwer/impc_fwer_appli.json") 
 
 # --------------------------------------------------------------------------------------------------------
 impc_dataset <- read.csv(param.list$datasetpath)
@@ -97,7 +96,7 @@ names(cvs_f)[2] = "AOB"
 names(cvs_f)[3] = "OB"
 names(cvs_f)[4] = "rho_AOB"
 names(cvs_f)[5] = "rho_OB"
-file_name = gsub(" " , "", paste("data/fwer/impc/", gsub(" ", "_", paste("impc_female_fwer_appli", now(), sep="_")), ".csv"))
+file_name = gsub(" " , "", paste("../../data/fwer/impc/", gsub(" ", "_", paste("impc_female_fwer_appli", now(), sep="_")), ".csv"))
 write.csv(cvs_f, file_name, row.names = FALSE)
 
 cvs_m <- data.frame(cbind(Male_test$raw[1 : m_test], AOB_m$cv, OB_m$cv, rho_AOB_m$cv, rho_OB_m$cv))
@@ -106,7 +105,7 @@ names(cvs_m)[2] = "AOB"
 names(cvs_m)[3] = "OB"
 names(cvs_m)[4] = "rho_AOB"
 names(cvs_m)[5] = "rho_OB"
-file_name = gsub(" " , "", paste("data/fwer/impc/", gsub(" ", "_", paste("impc_male_fwer_appli", now(), sep="_")), ".csv"))
+file_name = gsub(" " , "", paste("../../data/fwer/impc/", gsub(" ", "_", paste("impc_male_fwer_appli", now(), sep="_")), ".csv"))
 write.csv(cvs_m, file_name, row.names = FALSE)
 
 # --------------------------- Create plots and save them -------------------------------------------------------------
@@ -147,7 +146,7 @@ plot_1_fem_loglog <- ggplot(data) +
   ylim(c(min(data$pvalues), 0)) +
   theme(axis.text = element_text(size = 12))
 
-ggsave("figures/application/fwer/impc_app_fem_ob_rhoob.png", width = 16, height = 10, units = "cm")
+ggsave("../../figures/application/fwer/impc_app_fem_ob_rhoob.png", width = 16, height = 10, units = "cm")
 
 data <- data.frame(seq(1, m_plot), llog(cvs_f$pvalues[1 : m_plot]), llog(cvs_f$AOB[1 : m_plot]), llog(cvs_f$rho_AOB[1 : m_plot]))
 names(data)[1] = "index"
@@ -172,7 +171,7 @@ plot_2_fem_loglog <- ggplot(data) +
   ylim(c(min(data$pvalues), 0)) +
   theme(axis.text = element_text(size = 12))
 
-ggsave("figures/application/fwer/impc_app_fem_aob_rhoaob.png", width = 16, height = 10, units = "cm")
+ggsave("../../figures/application/fwer/impc_app_fem_aob_rhoaob.png", width = 16, height = 10, units = "cm")
 
 # male 
 
@@ -206,7 +205,7 @@ plot_1_male_loglog <- ggplot(data) +
   ylim(c(min(data$pvalues), 0)) +
   theme(axis.text = element_text(size = 12))
 
-ggsave("figures/application/fwer/impc_app_male_ob_rhoob.png", width = 16, height = 10, units = "cm")
+ggsave("../../figures/application/fwer/impc_app_male_ob_rhoob.png", width = 16, height = 10, units = "cm")
 
 data <- data.frame(seq(1, m_plot), llog(cvs_m$pvalues[1 : m_plot]), llog(cvs_m$AOB[1 : m_plot]), llog(cvs_m$rho_AOB[1 : m_plot]))
 names(data)[1] = "index"
@@ -231,7 +230,7 @@ plot_2_male_loglog <- ggplot(data) +
   ylim(c(min(data$pvalues), 0)) +
   theme(axis.text = element_text(size = 12))
 
-ggsave("figures/application/fwer/impc_app_male_aob_rhoaob.png", width = 16, height = 10, units = "cm")
+ggsave("../../figures/application/fwer/impc_app_male_aob_rhoaob.png", width = 16, height = 10, units = "cm")
 
 
 # wealth plot (for male data here but could be done for female data also)
@@ -268,4 +267,4 @@ plot_male_wealth <- ggplot(data_wealth_m) +
   # ylim(c(min(data_wealth_m$nominal_wealth_rhoob), alpha)) +
   theme(axis.text = element_text(size = 12))
 
-ggsave("figures/application/fwer/male_wealth_ob_rhoob.png", width = 16, height = 10, units = "cm")
+ggsave("../../figures/application/fwer/male_wealth_ob_rhoob.png", width = 16, height = 10, units = "cm")

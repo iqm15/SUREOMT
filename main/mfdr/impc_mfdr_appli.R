@@ -1,4 +1,3 @@
-setwd("/users/home/meah/phd_projects/SURE_OMT")
 library(dplyr)
 library(OnlineSuperUnif)
 library(onlineFDR)
@@ -17,7 +16,7 @@ library(latex2exp)
 # write.csv(df, "my_impcdata.csv", row.names = TRUE)
 
 # ------------------ load parameters from json file ------------------------------------------------------
-param.list <- fromJSON(file = "config/mfdr/impc_mfdr_appli.json") 
+param.list <- fromJSON(file = "../../config/mfdr/impc_mfdr_appli.json") 
 
 # --------------------------------------------------------------------------------------------------------
 impc_dataset <- read.csv(param.list$datasetpath)
@@ -119,7 +118,7 @@ names(cvs_f)[2] = "alord"
 names(cvs_f)[3] = "lord"
 names(cvs_f)[4] = "rho_alord"
 names(cvs_f)[5] = "rho_lord"
-file_name = gsub(" " , "", paste("data/mfdr/impc/", gsub(" ", "_", paste("impc_female_mfdr_appli", now(), sep="_")), ".csv"))
+file_name = gsub(" " , "", paste("../../data/mfdr/impc/", gsub(" ", "_", paste("impc_female_mfdr_appli", now(), sep="_")), ".csv"))
 write.csv(cvs_f, file_name, row.names = FALSE)
 
 cvs_m <- data.frame(cbind(Male_test$raw[1 : m_test], alord_m$cv, lord_m$cv, rhoalord_m$cv, rholord_m$cv))
@@ -128,7 +127,7 @@ names(cvs_m)[2] = "alord"
 names(cvs_m)[3] = "lord"
 names(cvs_m)[4] = "rho_alord"
 names(cvs_m)[5] = "rho_lord"
-file_name = gsub(" " , "", paste("data/mfdr/impc/", gsub(" ", "_", paste("impc_male_mfdr_appli", now(), sep="_")), ".csv"))
+file_name = gsub(" " , "", paste("../../data/mfdr/impc/", gsub(" ", "_", paste("impc_male_mfdr_appli", now(), sep="_")), ".csv"))
 write.csv(cvs_m, file_name, row.names = FALSE)
 
 # --------------------------- Create plots and save them -------------------------------------------------------------
@@ -170,7 +169,7 @@ plot_1_fem_loglog <- ggplot(data) +
   ylim(c(min(data$pvalues), 0)) +
   theme(axis.text = element_text(size = 12))
 
-ggsave("figures/application/mfdr/impc_app_female_lord_rholord.png", width = 16, height = 10, units = "cm")
+ggsave("../../figures/application/mfdr/impc_app_female_lord_rholord.png", width = 16, height = 10, units = "cm")
 
 data <- data.frame(seq(1, m_plot), llog(cvs_f$pvalues[1 : m_plot]), llog(cvs_f$alord[1 : m_plot]), llog(cvs_f$rho_alord[1 : m_plot]))
 names(data)[1] = "index"
@@ -195,7 +194,7 @@ plot_2_fem_loglog <- ggplot(data) +
   ylim(c(min(data$pvalues), 0)) +
   theme(axis.text = element_text(size = 12))
 
-ggsave("figures/application/mfdr/fem_alord_rhoalord.png", width = 16, height = 10, units = "cm")
+ggsave("../../figures/application/mfdr/fem_alord_rhoalord.png", width = 16, height = 10, units = "cm")
 
 # male 
 
@@ -229,7 +228,7 @@ plot_1_male_loglog <- ggplot(data) +
   ylim(c(min(data$pvalues), 0)) +
   theme(axis.text = element_text(size = 12))
 
-ggsave("figures/application/mfdr/male_lord_rholord.png", width = 16, height = 10, units = "cm")
+ggsave("../../figures/application/mfdr/male_lord_rholord.png", width = 16, height = 10, units = "cm")
 
 data <- data.frame(seq(1, m_plot), llog(cvs_m$pvalues[1 : m_plot]), llog(cvs_m$alord[1 : m_plot]), llog(cvs_m$rho_alord[1 : m_plot]))
 names(data)[1] = "index"
@@ -254,4 +253,4 @@ plot_2_male_cvs_mfdr_loglog <- ggplot(data) +
   ylim(c(min(data$pvalues), 0)) +
   theme(axis.text = element_text(size = 12))
 
-ggsave("figures/application/mfdr/male_alord_rhoalord.png", width = 16, height = 10, units = "cm")
+ggsave("../../figures/application/mfdr/male_alord_rhoalord.png", width = 16, height = 10, units = "cm")
