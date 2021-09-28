@@ -1,0 +1,4 @@
+This folder contains the code to obtain the results on simulated data or real data.
+The scripts are separated in fwer/ and mfdr/ folder, to get the results on fwer controlling procedures and on mfdr controlling procedures (the figures/ and data/ folders are organized in the same manner).
+Each script corresponds to one parameter of study: the position of the signal, its proportion (piA), its strength (p3), lambda, the number of individuals N, and the kernel bandwidth h (see the paper for more details). The scrips named "impc*" is the script for the real data application. 
+In each experiment run, the results are stored in csv files saved in the data/ folder and plots are created from this data and saved in the figures/ folder.
