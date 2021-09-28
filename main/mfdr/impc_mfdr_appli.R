@@ -98,8 +98,8 @@ sum((saffron_m$cv - saffron_onlinefdr_m$alphai)**2)
 
 
 # for the comparison between procedures we use ALORD (and not SAFFRON)
-alord_f <- saffron_OnlineSuperUnif(alpha, w0, Fem_test$raw[1 : m_test], gamma, lambda, capping = TRUE)
-alord_m <- saffron_OnlineSuperUnif(alpha, w0, Male_test$raw[1 : m_test], gamma, lambda, capping = TRUE)
+alord_f <- saffron_OnlineSuperUnif(alpha, w0, Fem_test$raw[1 : m_test], gamma, lambda, capping = FALSE)
+alord_m <- saffron_OnlineSuperUnif(alpha, w0, Male_test$raw[1 : m_test], gamma, lambda, capping = FALSE)
 
 rholord_f <- rho_LORD(alpha, w0, Fem_test$raw[1 : m_test], Fem_test$support[1 : m_test], gamma, gamma_prime)
 rholord_m <- rho_LORD(alpha, w0, Male_test$raw[1 : m_test], Male_test$support[1 : m_test], gamma, gamma_prime)
