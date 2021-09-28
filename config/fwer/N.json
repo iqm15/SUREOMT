@@ -1,5 +1,5 @@
 {
-    "nb_run": 10,
+    "nb_run": 10000,
     "non_nulls_proportion": 0.3,
     "alpha": 0.2,
     "N": {

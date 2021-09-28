@@ -1,5 +1,5 @@
 {
-    "nb_run": 10,
+    "nb_run": 10000,
     "non_nulls_proportion": 0.5,
     "alpha": 0.2,
     "w0": 0.1,
@@ -15,6 +15,6 @@
       "by" : 0.1
     },
     "lambda": 0.5,
-    "cluster_option": "end",
+    "cluster_option": "no_cluster_shuffle",
     "param_interest": "signal_strength_p3"
 }
