@@ -1,4 +1,4 @@
-setwd("/users/home/meah/phd_projects/online_superunif_mt/code/sure_omt_test")
+setwd("/users/home/meah/phd_projects/SURE_OMT")
 library(OnlineSuperUnif)
 library(lubridate)
 library(svMisc)
