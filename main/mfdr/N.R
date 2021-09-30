@@ -68,8 +68,10 @@ write.csv(df_power, file_name_data_power, row.names = FALSE)
 write.csv(df_mfdr, file_name_data_mfdr, row.names = FALSE)
 
 # ------------------- make plot and save it -----------------------------------------
+data_power <- read.csv(file_name_data_power)
+data_mfdr <- read.csv(file_name_data_mfdr)
 # Power plot 
-plot_pow <- ggplot(df_power, 
+plot_pow <- ggplot(data_power, 
                    aes_string(x = param.list$param_interest, 
                               y = "mean", 
                               group = "procedure", 
@@ -78,7 +80,7 @@ plot_pow <- ggplot(df_power,
                               shape = "procedure") 
 ) +
   scale_color_brewer(palette = "Paired") +
-  scale_x_discrete(breaks = seq(25, 150, 25)) + 
+  scale_x_continuous(breaks = seq(25, 150, 25)) + 
   geom_line(size = 1) +
   geom_point(size = 4) +
   scale_shape_manual(values = seq(0, 15)) + 
@@ -86,7 +88,7 @@ plot_pow <- ggplot(df_power,
   theme(text = element_text(size = 17))
 
 # mFDR plot
-plot_mfdr <- ggplot(df_mfdr, 
+plot_mfdr <- ggplot(data_mfdr, 
                     aes_string(x = param.list$param_interest, 
                                y = "mfdr", 
                                group = "procedure", 
@@ -94,7 +96,7 @@ plot_mfdr <- ggplot(df_mfdr,
                                linetype = "procedure", 
                                shape = "procedure")) +
   scale_color_brewer(palette = "Paired") +
-  scale_x_discrete(breaks = seq(25, 150, 25)) + 
+  scale_x_continuous(breaks = seq(25, 150, 25)) + 
   geom_line(size = 1) +
   geom_point(size = 4) +
   geom_hline(yintercept = param.list$alpha, linetype = "dashed", color = "red", size = 0.5) +
