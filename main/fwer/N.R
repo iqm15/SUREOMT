@@ -68,9 +68,10 @@ write.csv(df_fwer, file_name_data_fwer, row.names = FALSE)
 
 # ------------------- make plot and save it --------------------------------------
 # power plot 
+data_power <- read.csv(file_name_data_power)
+data_fwer <- read.csv(file_name_data_fwer)
 
-
-plot_pow <- ggplot(df_power, 
+plot_pow <- ggplot(data_power, 
                    aes_string(x = param.list$param_interest, 
                               y = "mean", 
                               group = "procedure", 
@@ -78,7 +79,7 @@ plot_pow <- ggplot(df_power,
                               linetype = "procedure", 
                               shape = "procedure") 
 ) +
-  # scale_x_discrete(labels = c("25", "50", "75", "100", "125", "150")) +
+  scale_x_continuous(breaks = seq(25, 150, 25)) +
   geom_line(size = 1) +
   geom_point(size = 4) +
   scale_color_brewer(palette = "Dark2") +
@@ -87,14 +88,14 @@ plot_pow <- ggplot(df_power,
   theme(text = element_text(size = 17))
 
 # FWER plot
-plot_fwer <- ggplot(df_fwer, 
+plot_fwer <- ggplot(data_fwer, 
                     aes_string(x = param.list$param_interest, 
                                y = "fwer", 
                                group = "procedure", 
                                color = "procedure", 
                                linetype = "procedure", 
                                shape = "procedure")) +
-  # scale_x_discrete(labels = c("25", "50", "75", "100", "125", "150")) +
+  scale_x_continuous(breaks = seq(25, 150, 25)) + 
   geom_line(size = 1) +
   geom_point(size = 4) +
   geom_hline(yintercept = param.list$alpha, linetype = "dashed", color = "red", size = 0.5) +

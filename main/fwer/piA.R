@@ -71,7 +71,11 @@ write.csv(df_fwer, file_name_data_fwer, row.names = FALSE)
 
 # -------------------- make plot and save it  ---------------------------------------
 # power plot 
-plot_pow <- ggplot(df_power, 
+
+data_power <- read.csv(file_name_data_power)
+data_fwer <- read.csv(file_name_data_fwer)
+
+plot_pow <- ggplot(data_power, 
                    aes_string(x = param.list$param_interest, 
                               y = "mean", 
                               group = "procedure", 
@@ -87,7 +91,7 @@ plot_pow <- ggplot(df_power,
   theme(text = element_text(size = 17))
 
 # FWER plot
-plot_fwer <- ggplot(df_fwer, 
+plot_fwer <- ggplot(data_fwer, 
                     aes_string(x = param.list$param_interest, 
                                y = "fwer", 
                                group = "procedure", 

@@ -262,6 +262,11 @@ plot_male_wealth <- ggplot(data_wealth_m) +
   geom_line(aes_string("index", "effective_wealth_ob"), lwd = 1, color = "darksalmon") +
   geom_line(aes_string("index", "effective_wealth_rhoob"), lwd = 1, color = "darkolivegreen") +
   
+  geom_hline(yintercept = llog(0.5), linetype = "dashed", color = "green", size = 0.5) +
+  
+  labs(tag = TeX("$\\lambda$")) +
+  theme(plot.tag.position = c(0.03, 0.94)) +
+  coord_cartesian( ylim = c(min(data$pvalues), llog(0.55)) , clip = "off") +
   labs(x = "t", y = "Wealth") +
   xlim(c(0, m_plot)) +
   # ylim(c(min(data_wealth_m$nominal_wealth_rhoob), alpha)) +

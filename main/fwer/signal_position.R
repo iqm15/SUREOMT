@@ -70,20 +70,23 @@ write.csv(df_power, file_name_data_power, row.names = FALSE)
 write.csv(df_fwer, file_name_data_fwer, row.names = FALSE)
 
 # -------------------- make plot and save it ----------------------------------------------
+data_power <- read.csv(file_name_data_power)
+data_fwer <- read.csv(file_name_data_fwer)
+
 # to have the x-ticks (different positions) sorted in alphabetical order
-nb_rows <- nrow(df_power)
+nb_rows <- nrow(data_power)
 
 for (i in 1:nb_rows) {
-  if (df_power[i, 1] == "begin") {df_power[i, 1] = df_fwer[i, 1] = "a"}
-  if (df_power[i, 1] == "begin_middle") {df_power[i, 1] = df_fwer[i, 1] = "b"}
-  if (df_power[i, 1] == "begin_end") {df_power[i, 1] = df_fwer[i, 1] =  "c"}
-  if (df_power[i, 1] == "middle_end") {df_power[i, 1] = df_fwer[i, 1] =  "d"}
-  if (df_power[i, 1] == "end") {df_power[i, 1] = df_fwer[i, 1] =  "e"}
-  if (df_power[i, 1] == "no_cluster_shuffle") {df_power[i, 1] = df_fwer[i, 1] =  "f"}
+  if (data_power[i, 1] == "begin") {data_power[i, 1] = data_fwer[i, 1] = "a"}
+  if (data_power[i, 1] == "begin_middle") {data_power[i, 1] = data_fwer[i, 1] = "b"}
+  if (data_power[i, 1] == "begin_end") {data_power[i, 1] = data_fwer[i, 1] =  "c"}
+  if (data_power[i, 1] == "middle_end") {data_power[i, 1] = data_fwer[i, 1] =  "d"}
+  if (data_power[i, 1] == "end") {data_power[i, 1] = data_fwer[i, 1] =  "e"}
+  if (data_power[i, 1] == "no_cluster_shuffle") {data_power[i, 1] = data_fwer[i, 1] =  "f"}
 }
 
 # power plot 
-plot_pow <- ggplot(df_power, 
+plot_pow <- ggplot(data_power, 
                    aes_string(x = param.list$param_interest, 
                               y = "mean", 
                               group = "procedure", 
@@ -104,7 +107,7 @@ plot_pow <- ggplot(df_power,
   theme(text = element_text(size = 17))
 
 # FWER plot
-plot_fwer <- ggplot(df_fwer, 
+plot_fwer <- ggplot(data_fwer, 
                     aes_string(x = param.list$param_interest, 
                                y = "fwer", 
                                group = "procedure", 

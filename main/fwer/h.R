@@ -84,7 +84,9 @@ write.csv(df_fwer, file_name_data_fwer, row.names = FALSE)
 
 # ------------------------------- create plot and save it ----------------------------------------------
 
-plot_pow <- ggplot(df_power, aes_string(x = param.list$param_interest,
+data_power <- read.csv(file_name_data_power)
+
+plot_pow <- ggplot(data_power, aes_string(x = param.list$param_interest,
                                        group = "procedure", 
                                        linetype = "procedure")) +
   geom_line(aes(y = mean_bandwidth_10)) +
