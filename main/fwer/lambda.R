@@ -72,8 +72,8 @@ write.csv(df_fwer, file_name_data_fwer, row.names = FALSE)
 data_power <- read.csv(file_name_data_power)
 data_fwer <- read.csv(file_name_data_fwer)
 
-data_power <- df_power %>% filter(procedure == "AOB" | procedure == "rhoAOB")
-data_fwer <- df_fwer %>% filter(procedure == "AOB" | procedure == "rhoAOB")
+data_power <- data_power %>% filter(procedure == "AOB" | procedure == "rhoAOB")
+data_fwer <- data_fwer %>% filter(procedure == "AOB" | procedure == "rhoAOB")
 
 # power plot 
 plot_pow <- ggplot(data_power, 
