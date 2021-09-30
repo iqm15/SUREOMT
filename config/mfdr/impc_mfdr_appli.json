@@ -1,5 +1,5 @@
 {
-  "m_test": 5000,
+  "m_test": 30000,
   "alpha": 0.2,
   "lambda": 0.5,
   "gamma_type": "q-serie",

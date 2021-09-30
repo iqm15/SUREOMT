@@ -241,12 +241,12 @@ wealth_effective <- function(error_budget, cvs, stepf){
   return(error_budget - cumsum(wealth.decrease))
 }
 
-step_m <- lapply(Male_test$support[1 : m_plot], function(x) stepfun(x, c(0, x)))
+stepf_m <- lapply(Male_test$support[1 : m_plot], function(x) stepfun(x, c(0, x)))
 
-wealth.nominal_ob_m <- alpha - cumsum(cvs_m$OB)
-wealth.effective_ob_m <- wealth_effective(alpha, cvs_m$OB, stepf_m)
-wealth.nominal_rhoob_m <- alpha- cumsum(cvs_m$rho_OB)
-wealth.effective_rhoob_m <- wealth_effective(alpha, cvs_m$rho_OB, stepf_m)
+wealth.nominal_ob_m <- alpha - cumsum(cvs_m$OB[1 : m_plot])
+wealth.effective_ob_m <- wealth_effective(alpha, cvs_m$OB[1 : m_plot], stepf_m)
+wealth.nominal_rhoob_m <- alpha- cumsum(cvs_m$rho_OB[1 : m_plot])
+wealth.effective_rhoob_m <- wealth_effective(alpha, cvs_m$rho_OB[1 : m_plot], stepf_m)
 
 data_wealth_m <- data.frame(seq(1, length(wealth.nominal_ob_m)), wealth.nominal_ob_m, 
                             wealth.effective_ob_m, wealth.nominal_rhoob_m, wealth.effective_rhoob_m)
@@ -262,11 +262,6 @@ plot_male_wealth <- ggplot(data_wealth_m) +
   geom_line(aes_string("index", "effective_wealth_ob"), lwd = 1, color = "darksalmon") +
   geom_line(aes_string("index", "effective_wealth_rhoob"), lwd = 1, color = "darkolivegreen") +
   
-  geom_hline(yintercept = llog(0.5), linetype = "dashed", color = "green", size = 0.5) +
-  
-  labs(tag = TeX("$\\lambda$")) +
-  theme(plot.tag.position = c(0.03, 0.94)) +
-  coord_cartesian( ylim = c(min(data$pvalues), llog(0.55)) , clip = "off") +
   labs(x = "t", y = "Wealth") +
   xlim(c(0, m_plot)) +
   # ylim(c(min(data_wealth_m$nominal_wealth_rhoob), alpha)) +
