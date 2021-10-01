@@ -6,6 +6,6 @@
   "q_1": 1.6,
   "gamma_prime_type": "rectangular",
   "q_2": 100,
-  "datasetpath": "/users/home/meah/phd_projects/online_superunif_mt/xp_data/my_impc_data/my_impcdata.csv",
+  "datasetpath": "../../data/impc_rates_counts.csv",
   "m_plot": 3000
 }
