@@ -13,7 +13,7 @@ library(latex2exp)
 # impc_dataset
 # df <- select(impc_dataset, Male.Control.Count, Male_AbRateWT, Male.Mutant.Count, Male_AbRateKO, Female.Control.Count, Fem_AbRateWT, Female.Mutant.Count, Fem_AbRateKO, stage1__BH)
 # df 
-# write.csv(df, "my_impcdata.csv", row.names = TRUE)
+# write.csv(df, "../../data/impc_rates_counts.csv", row.names = TRUE)
 
 # ------------------ load parameters from json file ------------------------------------------------------
 param.list <- fromJSON(file = "../../config/fwer/impc_fwer_appli.json") 
