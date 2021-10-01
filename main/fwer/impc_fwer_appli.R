@@ -9,7 +9,7 @@ library(tidyverse)
 library(latex2exp)
 
 # ---------------------------------------------------------------------------------------------------------
-# impc_dataset <- read.csv("../impc/ReproducibleCode/Figure 4/SDofGenotypeEffect_processedData_categorical.csv")
+# impc_dataset <- read.csv("../../data/ReproducibleCode/Figure 4/SDofGenotypeEffect_processedData_categorical.csv")
 # impc_dataset
 # df <- select(impc_dataset, Male.Control.Count, Male_AbRateWT, Male.Mutant.Count, Male_AbRateKO, Female.Control.Count, Fem_AbRateWT, Female.Mutant.Count, Fem_AbRateKO, stage1__BH)
 # df 
