@@ -169,7 +169,7 @@ plot_1_fem_loglog <- ggplot(data) +
   ylim(c(min(data$pvalues), 0)) +
   theme(axis.text = element_text(size = 12))
 
-ggsave("../../figures/application/mfdr/impc_app_female_lord_rholord.png", width = 16, height = 10, units = "cm")
+ggsave("../../figures/application/mfdr/impc_app_fem_lord_rholord.png", width = 16, height = 10, units = "cm")
 
 data <- data.frame(seq(1, m_plot), llog(cvs_f$pvalues[1 : m_plot]), llog(cvs_f$alord[1 : m_plot]), llog(cvs_f$rho_alord[1 : m_plot]))
 names(data)[1] = "index"
@@ -194,7 +194,7 @@ plot_2_fem_loglog <- ggplot(data) +
   ylim(c(min(data$pvalues), 0)) +
   theme(axis.text = element_text(size = 12))
 
-ggsave("../../figures/application/mfdr/fem_alord_rhoalord.png", width = 16, height = 10, units = "cm")
+ggsave("../../figures/application/mfdr/impc_app_fem_alord_rhoalord.png", width = 16, height = 10, units = "cm")
 
 # male 
 
@@ -228,7 +228,7 @@ plot_1_male_loglog <- ggplot(data) +
   ylim(c(min(data$pvalues), 0)) +
   theme(axis.text = element_text(size = 12))
 
-ggsave("../../figures/application/mfdr/male_lord_rholord.png", width = 16, height = 10, units = "cm")
+ggsave("../../figures/application/mfdr/impc_app_male_lord_rholord.png", width = 16, height = 10, units = "cm")
 
 data <- data.frame(seq(1, m_plot), llog(cvs_m$pvalues[1 : m_plot]), llog(cvs_m$alord[1 : m_plot]), llog(cvs_m$rho_alord[1 : m_plot]))
 names(data)[1] = "index"
@@ -253,4 +253,4 @@ plot_2_male_cvs_mfdr_loglog <- ggplot(data) +
   ylim(c(min(data$pvalues), 0)) +
   theme(axis.text = element_text(size = 12))
 
-ggsave("../../figures/application/mfdr/male_alord_rhoalord.png", width = 16, height = 10, units = "cm")
+ggsave("../../figures/application/mfdr/impc_app_male_alord_rhoalord.png", width = 16, height = 10, units = "cm")

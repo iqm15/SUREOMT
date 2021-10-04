@@ -7,5 +7,5 @@
   "gamma_prime_type": "rectangular",
   "q_2": 10,
   "datasetpath": "../../data/impc_rates_counts.csv",
-  "m_plot": 3000
+  "m_plot": 1500
 }
