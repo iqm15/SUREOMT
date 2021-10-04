@@ -20,6 +20,7 @@ To launch the experiments type in a terminal
 bash launch_simuxp.sh
 bash launch_applixp.sh
 ```
-Note that the experiments on simulated data use CPU parallelization. The experiments on real data take some time to run, the package will be improved to contain a faster implementation of our methods.  
+Note that each time you lauch the experiment a new .csv (with date and time detail) file is created in the corresponfind data/ folder, but the current plot is replaced with the one from the latest launch.
+The experiments on simulated data use CPU parallelization. The experiments on real data take some time to run, the package will be improved to contain a faster implementation of our methods.  
 Finally, in the figures/ folder and the corresponding folder in it, we provide Rmds to reproduce Figures 1, 2, 3, 4, 14, and 15. 
 
