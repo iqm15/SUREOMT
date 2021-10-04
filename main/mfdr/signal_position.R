@@ -70,7 +70,7 @@ write.csv(df_mfdr, file_name_data_mfdr, row.names = FALSE)
 
 # -------------------- make plot and save it -------------------------------------
 data_power <- read.csv(file_name_data_power)
-data_fwer <- read.csv(file_name_data_mfdr)
+data_mfdr <- read.csv(file_name_data_mfdr)
 # to the x-ticks sorted in alphabetical order
 nb_rows <- nrow(data_power)
 for (i in 1:nb_rows) {
