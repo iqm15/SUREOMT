@@ -1,6 +1,6 @@
 # SURE_OMT
 This repository contains the code to reproduce all the figures from 
-*Döhler, S., Meah, I., and Roquain, E. (2021). Online multiple testing with super-uniformity reward*.
+*Döhler, S., Meah, I., and Roquain, E. (2021). [Online multiple testing with super-uniformity reward](https://arxiv.org/pdf/2110.01255.pdf)*.
  
 ## Organization of the repository
 A package with the methods introduced in the paper is under construction. 
